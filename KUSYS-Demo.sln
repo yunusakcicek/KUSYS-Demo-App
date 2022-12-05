@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KUSYS-Demo", "KUSYS-Demo.csproj", "{633B52BD-6C39-4CB7-A9A8-AAC67954CA40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{633B52BD-6C39-4CB7-A9A8-AAC67954CA40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{633B52BD-6C39-4CB7-A9A8-AAC67954CA40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{633B52BD-6C39-4CB7-A9A8-AAC67954CA40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{633B52BD-6C39-4CB7-A9A8-AAC67954CA40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A78FEA54-EB7D-4F50-90B5-63623E3DB2CF}
+	EndGlobalSection
+EndGlobal

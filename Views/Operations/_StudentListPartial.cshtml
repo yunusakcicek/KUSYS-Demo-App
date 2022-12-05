@@ -1,0 +1,95 @@
+﻿@model UserViewModel
+@{
+    var userViewModel_ = new UserViewModel();
+    if (User.HasClaim("Roles", "Admin"))
+    {
+        userViewModel_.StudentList = Model.StudentList;
+    }
+    else
+    {
+        userViewModel_.StudentList = Model.StudentList.Where(x => User.HasClaim("StudentId", x.StudentId.ToString())).ToList();
+    }
+}
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Email Address</th>
+                    @if (User.HasClaim("Roles", "Admin"))
+                    {
+                        <th>Student Details</th>
+                        <th>Assign Courses</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    }
+                    else
+                    {
+                        <th>My Student Info</th>
+                        <th>Join Courses</th>
+                    }
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var StudentItem in userViewModel_.StudentList)
+                {
+                     var name_ = StudentItem.FirstName + " " + StudentItem.LastName; 
+                    <tr>
+                        <td>@StudentItem.FirstName @StudentItem.LastName</td>
+                        <td>
+                            @StudentItem.Email
+                        </td>
+
+
+                        <td class="text-center">
+                            <a href="#" id="@StudentItem.StudentId" role="button"
+                               data-toggle="modal" data-id="@StudentItem.UserId.ToString()" data-firstname="@StudentItem.FirstName"
+                               data-lastname="@StudentItem.LastName" data-email="@StudentItem.Email"
+                               data-birthdate="@StudentItem.BirthDate.ToString("dd.MM.yyyy")" data-target="#DetailsStudentModal" class="btn btn-dark">
+                                <i class="fa fa-info"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="#" id="@StudentItem.UserId" role="button"
+                               data-toggle="modal" data-id="@StudentItem.UserId" data-name="@name_" data-target="#AssignCourseModal" class="btn btn-primary assignCourse">
+                                <i class="fa fa-user-plus"></i>
+                            </a>
+                        </td>
+                        @if (User.HasClaim("Roles", "Admin"))
+                        {
+                            <td class="text-center">
+                                <a href="#" id="@StudentItem.StudentId" role="button"
+                                   data-toggle="modal" data-id="@StudentItem.UserId.ToString()" data-firstname="@StudentItem.FirstName"
+                                   data-lastname="@StudentItem.LastName" data-email="@StudentItem.Email.Replace("@ku.edu.tr","")"
+                                   data-birthdate="@StudentItem.BirthDate.ToString("yyyy-MM-dd")" data-target="#EditStudentModal" class="btn btn-warning">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" id="@StudentItem.StudentId" role="button"
+                                   data-toggle="modal" data-id="@StudentItem.UserId" data-name="@name_" data-target="#DeleteStudentModal" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+
+
+        });
+    </script>
+}

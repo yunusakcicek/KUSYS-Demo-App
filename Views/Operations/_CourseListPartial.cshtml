@@ -1,0 +1,73 @@
+﻿@model CourseViewModel
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Course Id</th>
+                    <th>Course Name</th>
+
+                    @if (User.HasClaim("Roles", "Admin"))
+                    {
+                        <th>Assign Student</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    }
+                    else
+                    {
+                        <th>Assign To Course</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var CourseItem in Model.CourseList)
+                {
+                    <tr>
+                        <td>@CourseItem.CourseRefId</td>
+                        <td>@CourseItem.CourseName</td>
+                        @if (User.HasClaim("Roles", "Admin"))
+                        {
+                            <td class="text-center">
+                                <a href="#" id="@CourseItem.CourseId" role="button"
+                                   data-toggle="modal" data-id="@CourseItem.CourseId" data-name="@CourseItem.CourseName" data-target="#AssignStudentModal" class="btn btn-primary assignStudent">
+                                    <i class="fa fa-user-plus"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" id="@CourseItem.CourseId" role="button"
+                                   data-toggle="modal" data-id="@CourseItem.CourseId" data-name="@CourseItem.CourseName" data-target="#EditCourseModal" class="btn btn-warning">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" id="@CourseItem.CourseId" role="button"
+                                   data-toggle="modal" data-id="@CourseItem.CourseId" data-name="@CourseItem.CourseName" data-target="#DeleteCourseModal" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-center">
+                                <a href="#" id="@CourseItem.CourseId" role="button"
+                                   data-toggle="modal" data-id="@CourseItem.CourseId" data-name="@CourseItem.CourseName" data-target="#AssignStudentModal" class="btn btn-primary assignStudent">
+                                    <i class="fa fa-user-plus"></i>
+                                </a>
+                            </td>
+                        }
+
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">$(document).ready(function () {
+            $('#dataTable').DataTable();
+
+
+        });</script>
+}

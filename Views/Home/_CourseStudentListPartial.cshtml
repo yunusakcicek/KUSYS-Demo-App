@@ -1,0 +1,109 @@
+﻿@model List<CourseStudentViewModel>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    @if (User.HasClaim("Roles", "Student"))
+                    {
+                        <th>Course Id</th>
+                        <th>Course Name</th>
+                    }
+                    else
+                    {
+                        <th>Course Id</th>
+                        <th>Course Name</th>
+                        <th>Student Name</th>
+                        <th>Student Mail</th>
+                    }
+
+                </tr>
+            </thead>
+            @{
+                var tempDataList_ = new List<CourseStudentViewModel>();
+                if (User.HasClaim("Roles", "Student"))
+                {
+                    tempDataList_ = Model.Where(x => x.UserViewModel.UserId.ToString().Equals(User.Identities.FirstOrDefault().Claims.Where(x=>x.Type.Equals("UserId")).FirstOrDefault().Value.ToString())).ToList();
+                }
+                else
+                {
+                    tempDataList_ = Model;
+                }
+            }
+            @{
+                string courseName = "";
+                string courseRefId = "";
+            }
+            <tbody>
+                @foreach (var CourseStudentItem in tempDataList_)
+                {
+                    <tr>
+                        @if (User.HasClaim("Roles", "Student"))
+                        {
+                            <td>
+
+                                @if (CourseStudentItem.CourseViewModel != null)
+                                {
+                                    courseRefId = CourseStudentItem.CourseViewModel.CourseRefId;
+                                }
+                                @courseRefId
+                            </td>
+                            <td class="text-center">
+
+                                @if (CourseStudentItem.CourseViewModel != null)
+                                {
+                                    courseName = CourseStudentItem.CourseViewModel.CourseName;
+                                }
+                                @courseName
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+
+                                @if (CourseStudentItem.CourseViewModel != null)
+                                {
+                                    courseRefId = CourseStudentItem.CourseViewModel.CourseRefId;
+                                }
+                                @courseRefId
+                                </td>
+                            <td class="text-center">
+
+                                @if (CourseStudentItem.CourseViewModel != null)
+                                {
+                                    courseName = CourseStudentItem.CourseViewModel.CourseName;
+                                }
+                                @courseName
+                            </td>
+
+                            <td class="text-center">
+                                @{string studentName="";}
+                                @if (CourseStudentItem.UserViewModel != null){
+                                    studentName = CourseStudentItem.UserViewModel.FirstName + " " + CourseStudentItem.UserViewModel.LastName;
+                                }
+                                @studentName
+                            </td>
+                            <td class="text-center">
+                                @{string email="";}
+                                @if (CourseStudentItem.UserViewModel != null){
+                                    email = CourseStudentItem.UserViewModel.Email;
+                                }
+                                @email
+                            </td>
+                        }
+
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">$(document).ready(function () {
+            $('#dataTable').DataTable();
+
+
+        });</script>
+}

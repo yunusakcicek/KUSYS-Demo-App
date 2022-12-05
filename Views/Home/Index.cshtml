@@ -1,0 +1,26 @@
+﻿@model List<CourseStudentViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Students</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Course Student List</h6>
+        </div>
+        <div id="CourseStudentListPartial">
+
+            @{
+                await Html.RenderPartialAsync("_CourseStudentListPartial", Model);
+            }
+        </div>
+    </div>
+
+
+</div>
+<!-- /.container-fluid -->
