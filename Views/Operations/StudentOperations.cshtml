@@ -1,4 +1,4 @@
-﻿@model UserViewModel
+@model UserViewModel
 @{
     ViewData["Title"] = "Student Operations";
 }
@@ -90,7 +90,7 @@
 
                 <div class="container-fluid h-100 bg-light text-dark">
                     <div class="row justify-content-center align-items-center h-100">
-                        <form id="EditStudentForm" method="post">
+                        <form id="DetailsStudentForm" method="post">
                             <div class="form-group">
                                 <label for="FirstName">First Name</label>
                                 <input readonly type="text" class="form-control detailsStudentFirstName" id="FirstName" placeholder="">
@@ -461,18 +461,5 @@
                 }
             });
         });
-                //$(".assignStudent").on('click', function (event) {
-                //    $.ajax({
-                //        url: "/Operations/GetStudentsForStudent",
-                //        type: 'GET',
-                //        data: { StudentId: $(this).attr('id') },
-                //        dataType: 'html', // added data type
-                //        success: function (res) {
-                //            $('#selectStudents').html(res);
-                //        },
-                //        error: function (res) {
-                //            ToastMessage('error', res);
-                //        }
-                //    });
-                //});</script>
+    </script>
 }
